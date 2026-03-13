@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 20th Birthday! ✨</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --pink: #ff477e; --soft-pink: #fff5f7; --gold: #d4af37; }
+        body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: var(--soft-pink); color: #333; overflow-x: hidden; scroll-behavior: smooth; cursor: crosshair; }
+
+        /* Hero Section */
+        .header { height: 100vh; background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1500'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        
+        .shimmer-text { font-family: 'Dancing Script', cursive; font-size: 5.5rem; background: linear-gradient(to right, #ff477e, #ff8fa3, #ff477e); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .age-badge { background: var(--pink); color: white; padding: 10px 30px; border-radius: 50px; font-weight: bold; letter-spacing: 2px; box-shadow: 0 10px 20px rgba(255, 71, 126, 0.3); }
+
+        /* Floating Hearts & Balloons */
+        .heart { position: fixed; color: var(--pink); font-size: 1.5rem; user-select: none; z-index: 999; pointer-events: none; animation: fall linear forwards; }
+        .balloon { position: fixed; bottom: -100px; font-size: 2rem; z-index: 998; animation: flyUp linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+        @keyframes flyUp { to { transform: translateY(-110vh) translateX(50px); opacity: 0; } }
+
+        /* Quotes Section (NEW) */
+        .quotes-section { padding: 60px 20px; text-align: center; background: #fff; border-top: 2px solid var(--soft-pink); border-bottom: 2px solid var(--soft-pink); }
+        .quote-box { max-width: 700px; margin: 0 auto; padding: 30px; border-radius: 20px; background: var(--soft-pink); position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .quote-box::before { content: "“"; font-family: 'Playfair Display'; font-size: 5rem; color: var(--pink); position: absolute; top: -10px; left: 20px; opacity: 0.3; }
+        #birthdayQuote { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; color: #444; line-height: 1.6; }
+
+        /* Memory Section */
+        .memory-section { padding: 80px 10%; background: #fff; text-align: center; }
+        .memory-capsule { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        .memory-card { background: var(--soft-pink); padding: 20px; border-radius: 15px; width: 200px; cursor: pointer; transition: 0.3s; border: 1px dashed var(--pink); }
+        .memory-card:hover { background: var(--pink); color: white; transform: translateY(-5px); }
+        .memory-card span { display: none; margin-top: 10px; font-size: 0.9rem; font-style: italic; }
+
+        /* Blessing Button */
+        .blessing-box { padding: 40px; text-align: center; background: white; }
+        .bless-btn { background: none; border: 2px solid var(--pink); color: var(--pink); padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .bless-btn:hover { background: var(--pink); color: white; }
+
+        /* Gallery, Reasons, etc. */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 40px 10%; background: white; }
+        .gallery-item { height: 350px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .reasons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 60px 10%; }
+        .reason-card { background: white; padding: 30px; border-radius: 20px; border-left: 5px solid var(--pink); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        
+        .gift-container { padding: 80px 20px; text-align: center; background: var(--pink); color: white; }
+        .music-player { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; align-items: center; gap: 10px; background: white; padding: 5px 15px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .vinyl { width: 40px; height: 40px; background: #333; border-radius: 50%; animation: rotate 3s linear infinite; animation-play-state: paused; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body onload="init()">
+
+    <div class="music-player" onclick="toggleMusic()">
+        <span style="font-size: 0.8rem; font-weight: bold; color: var(--pink);" id="musicStatus">PLAY MUSIC</span>
+        <div class="vinyl" id="vinylRecord"></div>
+        <audio id="bdaySong" loop src="mp3.mp3"></audio>
+    </div>
+
+    <section class="header">
+        <div class="age-badge">20 YEARS OF BEAUTY</div>
+        <h1 class="shimmer-text">Happy Birthday,Chanchal Jaiswal💖</h1>
+        <p>A star was born this day. ✨</p>
+    </section>
+
+    <section class="quotes-section">
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--pink); margin-bottom: 30px;">Golden Words</h2>
+        <div class="quote-box">
+            <p id="birthdayQuote">Loading a special wish for you...</p>
+        </div>
+    </section>
+    <section style="padding:80px 20px;text-align:center;background:#fff0f4;">
+    
+<h2 style="font-family:'Dancing Script';font-size:2.5rem;color:#ff477e;">
+Birthday Cake 🎂
+</h2>
+
+<p>Click the cake to make a wish and blow the candle ✨</p>
+
+<div id="cakeBox" onclick="blowCandle()" style="font-size:120px;cursor:pointer;">
+🎂
+</div>
+
+<p id="wishText" style="display:none;font-size:1.5rem;color:#ff477e;font-weight:bold;">
+Make a wish… and may all your dreams come true! ✨
+</p>
+
+
+</section>
+
+
+    <section class="memory-section">
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--pink);">Memory Time Capsule</h2>
+        <p>Click on the years to reveal a memory...</p>
+        <div class="memory-capsule">
+            <div class="memory-card" onclick="showMemory(this)">
+                <b>2024</b>
+                <span>tumhara bhaiya </span>
+            </div>
+            <div class="memory-card" onclick="showMemory(this)">
+                <b>2025</b>
+                <span>tumhra best freind </span>
+            </div>
+            <div class="memory-card" onclick="showMemory(this)">
+                <b>2026</b>
+                <span>Aaj tum kya ho mere liye can't define</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+
+<h2 class="about-title">About You 💖</h2>
+
+<div class="about-card">
+
+<p>
+    Many many Happy returns of the day,meri babes 🎉🎂✨
+    God bless you with all the happiness and success in the world.
+
+Meri life me tumhara hona ek blessing jaisa hai.  
+Aur main hope karta hu ki tumhari life me hamesha happiness, 
+success aur love rahe. ✨
+
+sorry yr janta hu bhot bol deta hu daat deta hu but meri feelings genuine hai.
+mai asia krna nhi chahta hu phir vi ho jata hai..
+Sorry for that ...
+
+</p>
+
+</div>
+<style>.about-section{
+padding:80px 20px;
+text-align:center;
+background:#fff;
+}
+
+.about-title{
+font-family:'Dancing Script',cursive;
+font-size:2.8rem;
+color:#ff477e;
+margin-bottom:30px;
+}
+
+.about-card{
+max-width:700px;
+margin:auto;
+background:#fff5f7;
+padding:35px;
+border-radius:20px;
+box-shadow:0 10px 20px rgba(0,0,0,0.05);
+font-size:1.1rem;
+line-height:1.8;
+}</style>
+
+</section>
+
+    <section style="padding: 100px 20px; text-align: center; background: var(--soft-pink);">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem;">To My Favorite Person...</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8;">
+                "20 saal ki umar sabse khas hoti hai. Yeh wo waqt hai jab tum apne sapno ko sach hote dekhoge. 
+                Meri dua hai ki tumhari life ka har pal <span style="color:var(--pink); font-weight:bold;">aesthetic</span> aur khushiyon se bhara ho. 
+                Tum sirf meri special person nahi, tum mere liye ek zinda-dili ki misaal ho."
+            </p>
+        </div>
+    </section>
+
+    <div class="gallery-grid">
+        <div class="gallery-item"><img src="https://img.freepik.com/premium-vector/red-heart-with-red-heart-drawn-it_809796-3849.jpg?semt=ais_hybrid&w=740&q=80"></div>
+        <div class="gallery-item"><img src="Snapchat-806719156.jpg"></div>
+        <div class="gallery-item"><img src="https://img.freepik.com/premium-vector/red-heart-with-red-heart-drawn-it_809796-3849.jpg?semt=ais_hybrid&w=740&q=80"></div>
+    </div>
+
+    <div class="blessing-box">
+        <button class="bless-btn" onclick="getBlessing()">Tap for a Birthday Blessing 🎇</button>
+        <p id="blessingText" style="margin-top: 15px; font-weight: bold; color: #555;"></p>
+    </div>
+
+    <section class="reasons-grid" id="reasonsGrid"></section>
+
+    <section class="gift-container">
+        <h3>One last surprise... 🎁</h3>
+        <div style="font-size: 5rem; cursor: pointer;" onclick="revealGift(this)">🎁</div>
+        <div id="secretWish" style="display:none; font-family: 'Dancing Script'; font-size: 1.8rem; margin-top: 20px;">
+            "Happy 20th Birthday. I'm so lucky to have you in my life. ❤️"
+        </div>
+    </section>
+
+    <script>
+        function init() {
+            createReasons();
+            displayRandomQuote();
+            setInterval(createHeart, 1000);
+            setInterval(createBalloon, 3000);
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function displayRandomQuote() {
+            const quotes = [
+                "May your 20s be as beautiful as your smile and as bright as your soul.",
+                "20 looks absolutely magical on you. Keep shining like the star you are!",
+                "Wishing you a year where every dream finds its way to reality. Happy 20th!",
+                "You aren't just getting older; you're becoming a more exquisite version of yourself.",
+                "May your journey be filled with aesthetic vibes, endless laughter, and true love."
+            ];
+            const quoteElement = document.getElementById('birthdayQuote');
+            quoteElement.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+        }
+function blowCandle(){
+
+    const cake = document.getElementById("cakeBox");
+    const wish = document.getElementById("wishText");
+
+    cake.innerHTML = "🍰";
+
+    wish.style.display = "block";
+
+    confetti({
+        particleCount: 250,
+        spread: 120,
+        origin: { y: 0.6 }
+    });
+
+}
+        function createReasons() {
+            const reasons = ["Your Smile", "Your Kindness", "How you handle me", "Your dreams", "Your voice", "The way you laugh", "Your support", "Your style", "Your patience", "Your heart", "Your wisdom", "How you listen", "Your vibe", "Your strength", "Your loyalty", "Your cute anger", "Your morning energy", "Your hair", "Your care", "Simply being YOU."];
+            const grid = document.getElementById('reasonsGrid');
+            reasons.forEach((r, i) => {
+                grid.innerHTML += `<div class="reason-card"><b>#${i+1}</b><p>${r}</p></div>`;
+            });
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function createBalloon() {
+            const balloon = document.createElement("div");
+            balloon.classList.add("balloon");
+            const colors = ['🎈', '💖', '✨', '🌸'];
+            balloon.innerHTML = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.left = Math.random() * 100 + "vw";
+            balloon.style.animationDuration = Math.random() * 5 + 5 + "s";
+            document.body.appendChild(balloon);
+            setTimeout(() => balloon.remove(), 10000);
+        }
+
+        function showMemory(card) {
+            const span = card.querySelector('span');
+            span.style.display = span.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function getBlessing() {
+            const blessings = ["Unlimited Smiles 😇", "Success in everything you touch 🚀", "Infinite Peace 🕊️", "A year full of surprises 🎁", "Staying this beautiful forever ✨"];
+            document.getElementById('blessingText').innerText = blessings[Math.floor(Math.random() * blessings.length)];
+            confetti({ particleCount: 50, spread: 50 });
+        }
+
+        function revealGift(el) {
+            el.innerHTML = "💖";
+            document.getElementById('secretWish').style.display = "block";
+            confetti({ particleCount: 200, spread: 100 });
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById('bdaySong');
+            const vinyl = document.getElementById('vinylRecord');
+            if (audio.paused) {
+                audio.play();
+                vinyl.style.animationPlayState = 'running';
+                document.getElementById('musicStatus').innerText = "PLAYING";
+            } else {
+                audio.pause();
+                vinyl.style.animationPlayState = 'paused';
+                document.getElementById('musicStatus').innerText = "PAUSED";
+            }
+        }
+        document.body.addEventListener("click", function () {
+
+const audio = document.getElementById("bdaySong");
+
+if(audio.paused){
+audio.play();
+}
+
+}, { once: true });
+    </script>
+</body>
+</html>
