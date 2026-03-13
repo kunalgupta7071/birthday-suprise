@@ -54,6 +54,70 @@
         .music-player { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; align-items: center; gap: 10px; background: white; padding: 5px 15px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .vinyl { width: 40px; height: 40px; background: #333; border-radius: 50%; animation: rotate 3s linear infinite; animation-play-state: paused; }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @media (max-width:768px){
+
+.shimmer-text{
+font-size:2.5rem;
+text-align:center;
+padding:0 10px;
+}
+
+.header p{
+font-size:1rem;
+}
+
+.age-badge{
+font-size:0.8rem;
+padding:8px 20px;
+}
+
+.quote-box{
+padding:20px;
+}
+
+#birthdayQuote{
+font-size:1.1rem;
+}
+
+.memory-capsule{
+flex-direction:column;
+align-items:center;
+}
+
+.memory-card{
+width:90%;
+}
+
+.gallery-grid{
+grid-template-columns:1fr;
+padding:20px;
+}
+
+.gallery-item{
+height:250px;
+}
+
+.reason-card{
+padding:20px;
+}
+
+.reasons-grid{
+grid-template-columns:1fr;
+padding:30px 20px;
+}
+
+.music-player{
+bottom:15px;
+right:15px;
+transform:scale(0.9);
+}
+
+.about-card{
+padding:25px;
+font-size:1rem;
+}
+
+}
     </style>
 </head>
 <body onload="init()">
