@@ -1,0 +1,134 @@
+
+        :root { --pink: #ff477e; --soft-pink: #fff5f7; --gold: #d4af37; }
+        body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: var(--soft-pink); color: #333; overflow-x: hidden; scroll-behavior: smooth; cursor: crosshair; }
+
+        /* Hero Section */
+        .header { height: 100vh; background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1500'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        
+        .shimmer-text { font-family: 'Dancing Script', cursive; font-size: 5.5rem; background: linear-gradient(to right, #ff477e, #ff8fa3, #ff477e); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .age-badge { background: var(--pink); color: white; padding: 10px 30px; border-radius: 50px; font-weight: bold; letter-spacing: 2px; box-shadow: 0 10px 20px rgba(255, 71, 126, 0.3); }
+
+        /* Floating Hearts & Balloons */
+        .heart { position: fixed; color: var(--pink); font-size: 1.5rem; user-select: none; z-index: 999; pointer-events: none; animation: fall linear forwards; }
+        .balloon { position: fixed; bottom: -100px; font-size: 2rem; z-index: 998; animation: flyUp linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+        @keyframes flyUp { to { transform: translateY(-110vh) translateX(50px); opacity: 0; } }
+
+        /* Quotes Section (NEW) */
+        .quotes-section { padding: 60px 20px; text-align: center; background: #fff; border-top: 2px solid var(--soft-pink); border-bottom: 2px solid var(--soft-pink); }
+        .quote-box { max-width: 700px; margin: 0 auto; padding: 30px; border-radius: 20px; background: var(--soft-pink); position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .quote-box::before { content: "“"; font-family: 'Playfair Display'; font-size: 5rem; color: var(--pink); position: absolute; top: -10px; left: 20px; opacity: 0.3; }
+        #birthdayQuote { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; color: #444; line-height: 1.6; }
+
+        /* Memory Section */
+        .memory-section { padding: 80px 10%; background: #fff; text-align: center; }
+        .memory-capsule { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        .memory-card { background: var(--soft-pink); padding: 20px; border-radius: 15px; width: 200px; cursor: pointer; transition: 0.3s; border: 1px dashed var(--pink); }
+        .memory-card:hover { background: var(--pink); color: white; transform: translateY(-5px); }
+        .memory-card span { display: none; margin-top: 10px; font-size: 0.9rem; font-style: italic; }
+
+        /* Blessing Button */
+        .blessing-box { padding: 40px; text-align: center; background: white; }
+        .bless-btn { background: none; border: 2px solid var(--pink); color: var(--pink); padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .bless-btn:hover { background: var(--pink); color: white; }
+
+        /* Gallery, Reasons, etc. */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 40px 10%; background: white; }
+        .gallery-item { height: 350px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .reasons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 60px 10%; }
+        .reason-card { background: white; padding: 30px; border-radius: 20px; border-left: 5px solid var(--pink); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        
+        .gift-container { padding: 80px 20px; text-align: center; background: var(--pink); color: white; }
+        .music-player { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; align-items: center; gap: 10px; background: white; padding: 5px 15px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .vinyl { width: 40px; height: 40px; background: #333; border-radius: 50%; animation: rotate 3s linear infinite; animation-play-state: paused; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @media (max-width:768px){
+
+.shimmer-text{
+font-size:2.5rem;
+text-align:center;
+padding:0 10px;
+}
+
+.header p{
+font-size:1rem;
+}
+
+.age-badge{
+font-size:0.8rem;
+padding:8px 20px;
+}
+
+.quote-box{
+padding:20px;
+}
+
+#birthdayQuote{
+font-size:1.1rem;
+}
+
+.memory-capsule{
+flex-direction:column;
+align-items:center;
+}
+
+.memory-card{
+width:90%;
+}
+
+.gallery-grid{
+grid-template-columns:1fr;
+padding:20px;
+}
+
+.gallery-item{
+height:250px;
+}
+
+.reason-card{
+padding:20px;
+}
+
+.reasons-grid{
+grid-template-columns:1fr;
+padding:30px 20px;
+}
+
+.music-player{
+bottom:15px;
+right:15px;
+transform:scale(0.9);
+}
+
+.about-card{
+padding:25px;
+font-size:1rem;
+}
+
+}
+.about-section{
+padding:80px 20px;
+text-align:center;
+background:#fff;
+}
+
+.about-title{
+font-family:'Dancing Script',cursive;
+font-size:2.8rem;
+color:#ff477e;
+margin-bottom:30px;
+}
+
+.about-card{
+max-width:700px;
+margin:auto;
+background:#fff5f7;
+padding:35px;
+border-radius:20px;
+box-shadow:0 10px 20px rgba(0,0,0,0.05);
+font-size:1.1rem;
+line-height:1.8;
+}
